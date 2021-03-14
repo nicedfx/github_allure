@@ -1,10 +1,18 @@
 package tests;
 
+import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.Selenide;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Disabled;
-import org.junit.jupiter.api.Test;
+import com.codeborne.selenide.logevents.SelenideLogger;
+import io.qameta.allure.Feature;
+import io.qameta.allure.Link;
+import io.qameta.allure.Owner;
+import io.qameta.allure.Story;
+import io.qameta.allure.selenide.AllureSelenide;
+import org.junit.jupiter.api.*;
+import org.openqa.selenium.remote.DesiredCapabilities;
 
+import static com.codeborne.selenide.Browsers.CHROME;
+import static com.codeborne.selenide.Browsers.FIREFOX;
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selectors.byValue;
@@ -16,10 +24,28 @@ public class GitHubIssueTest {
     static final String label1 = "duplicate";
     static final String label2 = "good first issue";
     static final String repoName = "github_allure";
+    static final String BASEURL = "https://gighub.com";
 
     @Test
-    @Disabled
+    @Link(name = "BaseUrl", value = BASEURL)
+    @Tags({@Tag("Web"), @Tag("Basic"), @Tag("ListenerOnly")})
+    @DisplayName("Create an issue with an assignee and labels and remove it: NO ALLURE")
+    @Feature("Issues")
+    @Story("Create new issue")
+    @Owner("Sba")
     public void createIssue() {
+        //adding selenide logger - to use when many test are already developed w/o steps or
+        SelenideLogger.addListener("allure", new AllureSelenide());
+
+        DesiredCapabilities capabilities = new DesiredCapabilities();
+        capabilities.setCapability("enableVNC", true);
+        capabilities.setCapability("enableVideo", true);
+        Configuration.browserCapabilities = capabilities;
+        Configuration.browser = CHROME;
+        Configuration.startMaximized = true;
+
+        Configuration.remote = "http://user1:alcatel_1@selenoid.sbacho.ml:4444/wd/hub";
+
         open("https://github.com/");
 
 //      Navigate to the issue creation page and create a new issue.
@@ -29,6 +55,7 @@ public class GitHubIssueTest {
         $("input#password").setValue(new Credentials().getPassword());
 
         $(byValue("Sign in")).click();
+        $("form.js-more-repos-form").click();
         $("#repos-container").$(byText(repoName)).click();
         $("[data-content=Issues]").click();
         $$(".d-none.d-md-block").find(text("New issue")).click();

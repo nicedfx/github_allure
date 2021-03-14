@@ -24,6 +24,7 @@ public class GitHubBaseSteps {
     }
     @Step("Go to the {repository} repo")
     public void goToRepositoryFromSearch(String repository) {
+        $("form.js-more-repos-form").click();
         $(By.linkText(repository)).click();
     }
 

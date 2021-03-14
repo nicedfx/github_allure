@@ -1,10 +1,12 @@
 package tests;
 
 import com.codeborne.selenide.Selenide;
+import com.codeborne.selenide.logevents.SelenideLogger;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Link;
 import io.qameta.allure.Owner;
 import io.qameta.allure.Story;
+import io.qameta.allure.selenide.AllureSelenide;
 import org.junit.jupiter.api.*;
 
 import static com.codeborne.selenide.Condition.text;
@@ -24,7 +26,7 @@ public class GitHubIssueTestSteps {
 
     @Test
     @Link(name = "BaseUrl", value = BASEURL)
-    @Tags({@Tag("Web"), @Tag("Basic")})
+    @Tags({@Tag("Web"), @Tag("Basic"), @Tag("AllureSteps")})
     @DisplayName("Create an issue with an assignee and labels and remove it")
     @Feature("Issues")
     @Story("Create new issue")
@@ -33,6 +35,8 @@ public class GitHubIssueTestSteps {
     public void createIssue() {
         parameter("Repository", repoName);
         parameter("Issue name", issueName);
+
+        SelenideLogger.addListener("allure", new AllureSelenide());
 
         step("Open Github main page", () -> {
             open(BASEURL);
@@ -47,6 +51,7 @@ public class GitHubIssueTestSteps {
         });
 
         step("Create a new issue", () -> {
+            $("form.js-more-repos-form").click();
             $("#repos-container").$(byText(repoName)).click();
             $("[data-content=Issues]").click();
             $$(".d-none.d-md-block").find(text("New issue")).click();
@@ -112,6 +117,7 @@ public class GitHubIssueTestSteps {
         });
 
         step("Create a new issue", () -> {
+            $("form.js-more-repos-form").click();
             $("#repos-container").$(byText(repoName)).click();
             $("[data-content=Issues]").click();
             $$(".d-none.d-md-block").find(text("New issue")).click();
