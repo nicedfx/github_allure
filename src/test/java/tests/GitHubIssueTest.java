@@ -9,7 +9,10 @@ import io.qameta.allure.Owner;
 import io.qameta.allure.Story;
 import io.qameta.allure.selenide.AllureSelenide;
 import org.junit.jupiter.api.*;
+<<<<<<< HEAD
 import org.openqa.selenium.remote.DesiredCapabilities;
+=======
+>>>>>>> b31a3b0ed1ead4244b7d57babcfeabb7c7339b0e
 
 import static com.codeborne.selenide.Browsers.CHROME;
 import static com.codeborne.selenide.Browsers.FIREFOX;
@@ -37,6 +40,7 @@ public class GitHubIssueTest {
         //adding selenide logger - to use when many test are already developed w/o steps or
         SelenideLogger.addListener("allure", new AllureSelenide());
 
+<<<<<<< HEAD
         DesiredCapabilities capabilities = new DesiredCapabilities();
         capabilities.setCapability("enableVNC", true);
         capabilities.setCapability("enableVideo", true);
@@ -46,6 +50,8 @@ public class GitHubIssueTest {
 
         Configuration.remote = "http://user1:alcatel_1@selenoid.sbacho.ml:4444/wd/hub";
 
+=======
+>>>>>>> b31a3b0ed1ead4244b7d57babcfeabb7c7339b0e
         open("https://github.com/");
 
 //      Navigate to the issue creation page and create a new issue.
