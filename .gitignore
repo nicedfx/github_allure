@@ -23,6 +23,7 @@
 *.rar
 *.imlgit
 
+
 # Project gen files
 .idea
 .allure/
@@ -41,6 +42,6 @@ target/
 /gradlew
 /gradlew.bat
 settings.gradle
-*/credentials.txt
+credentials.txt
 
 

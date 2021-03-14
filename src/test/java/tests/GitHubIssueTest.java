@@ -1,9 +1,13 @@
 package tests;
 
 import com.codeborne.selenide.Selenide;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Disabled;
-import org.junit.jupiter.api.Test;
+import com.codeborne.selenide.logevents.SelenideLogger;
+import io.qameta.allure.Feature;
+import io.qameta.allure.Link;
+import io.qameta.allure.Owner;
+import io.qameta.allure.Story;
+import io.qameta.allure.selenide.AllureSelenide;
+import org.junit.jupiter.api.*;
 
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selectors.byText;
@@ -16,10 +20,19 @@ public class GitHubIssueTest {
     static final String label1 = "duplicate";
     static final String label2 = "good first issue";
     static final String repoName = "github_allure";
+    static final String BASEURL = "https://gighub.com";
 
     @Test
-    @Disabled
+    @Link(name = "BaseUrl", value = BASEURL)
+    @Tags({@Tag("Web"), @Tag("Basic"), @Tag("ListenerOnly")})
+    @DisplayName("Create an issue with an assignee and labels and remove it: NO ALLURE")
+    @Feature("Issues")
+    @Story("Create new issue")
+    @Owner("Sba")
     public void createIssue() {
+        //adding selenide logger - to use when many test are already developed w/o steps or
+        SelenideLogger.addListener("allure", new AllureSelenide());
+
         open("https://github.com/");
 
 //      Navigate to the issue creation page and create a new issue.
