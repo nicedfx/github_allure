@@ -42,7 +42,7 @@ public class GitHubIssueTest {
         Configuration.browser = CHROME;
         Configuration.startMaximized = true;
 
-        Configuration.remote = "http://user1:alcatel_1@selenoid.sbacho.ml:4444/wd/hub";
+        Configuration.remote = "http://Z^p&F:alcatel_1@selenoid.sbacho.ml:4444/wd/hub";
 
         open("https://github.com/");
 
